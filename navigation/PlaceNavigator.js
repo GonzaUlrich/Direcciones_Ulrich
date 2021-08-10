@@ -7,6 +7,13 @@ import { Platform } from 'react-native'
 import React from 'react'
 import { createStackNavigator } from '@react-navigation/stack'
 
+// screens
+
+
+
+
+
+
 const PlaceStack = createStackNavigator()
 
 const PlaceNavigator = () => (
@@ -30,7 +37,7 @@ const PlaceNavigator = () => (
         <PlaceStack.Screen
             name="Detalle"
             component={PlaceDetailScreen}
-            options={{title: 'Informacion'}} 
+            options={{title: 'Detalle direccion'}} 
         />
         <PlaceStack.Screen
             name="Nuevo"

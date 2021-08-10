@@ -5,5 +5,4 @@ export default {
   BOTON1: "#98DFEA",
   PLUM: "#8F3985",
   SHADOW: "#666666",
-  HUGOGAY: "#654896"
 };

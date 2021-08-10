@@ -47,7 +47,7 @@ const ImageSelector = props => {
         }
       </View>
       <Button
-        title="Foto"
+        title="Tomar Foto"
         color={COLORS.BOTON1}
         onPress={handlerTakeImage}
       />
@@ -57,7 +57,7 @@ const ImageSelector = props => {
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    marginBottom: 15,
   },
   preview: {
     width: '100%',
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    borderColor: COLORS.BLUSH,
+    borderColor: COLORS.PLUM,
     borderWidth: 1,
   },
   image: {

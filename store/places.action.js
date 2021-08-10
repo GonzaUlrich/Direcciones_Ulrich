@@ -1,11 +1,24 @@
 import * as FileSystem from 'expo-file-system';
 import { insertAddress, fetchAddress } from '../db';
+import { MAP } from '../constants';
 
 export const ADD_PLACE = 'ADD_PLACE';
 export const LOAD_PLACES = 'LOAD_PLACES';
 
-export const addPlace = (title, image) => {
+export const addPlace = (title, image, location) => {
     return async dispatch => {
+        console.log(location)
+        const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${location.lat},${location.lng}&key=${MAP.API_KEY}`
+        );
+
+        //if (!response.ok) throw new Error('[GEOCODE] Algo malo ha sucedido');
+        
+        const resData = await response.json();
+        console.log(resData)
+        if (!resData.results) throw new Error('[GEOCODE] Algo malo ha sucedido');
+        
+        const address = resData.results[0].formatted_address;
+
         const fileName = image.split('/').pop()
         const Path = FileSystem.documentDirectory + fileName;
 
@@ -18,16 +31,23 @@ export const addPlace = (title, image) => {
             const result = await insertAddress(
                 title,
                 Path,
-                'Address',
-                13.5,
-                10.5,
+                address,
+                location.lat,
+                location.lng,
             );
-
-            console.log(result)
 
             dispatch({
                 type: ADD_PLACE,
-                payload: { id: result.insertId, title, image: Path },
+                payload: {
+                    id: result.insertId,
+                    title,
+                    image: Path,
+                    address,
+                    coords: {
+                        lat: location.lat,
+                        lng: location.lng
+                    },
+                },
             });
         } catch (err) {
             console.log(err.mesage);
